@@ -23,7 +23,18 @@ struct VocalsView: View {
                     .padding()
                 List {
                     ForEach(viewModel.storedRecordings, id: \.id) { rec in
-                        Text(rec.title)
+                        HStack {
+                            Text(rec.title)
+                            Spacer()
+                            Button {
+                                AudioManager.shared.playRecord(record: rec)
+                            } label: {
+                                Image(systemName: "play.circle")
+                                    .resizable()
+                            }
+                            .foregroundColor(.green)
+                            .frame(width: 48, height: 48)
+                        }
                     }
                 }
                 Spacer()

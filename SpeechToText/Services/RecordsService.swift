@@ -14,18 +14,22 @@ final class RecordsService: ObservableObject {
         self.resetFileManager()
     }
     
+    func playRecord(record: Record) {
+        AudioManager.shared.playRecord(record: record)
+    }
+    
     func startRecording() {
-        AudioManager.startRecording()
+        AudioManager.shared.startRecording()
     }
     
     func stopRecording() {
-        AudioManager.stopRecording { recording in
+        AudioManager.shared.stopRecording { recording in
             self.vocals.append(recording)
         }
     }
     
     private func resetFileManager() {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        try! FileManager.default.removeItem(at: path)
+        try? FileManager.default.removeItem(at: path)
     }
 }
