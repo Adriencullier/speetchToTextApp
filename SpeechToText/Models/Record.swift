@@ -10,6 +10,7 @@ import Foundation
 struct Segment {
     let segment: String
     let timeStramp: TimeInterval
+    let confidence: Float
 }
 
 final class Record {

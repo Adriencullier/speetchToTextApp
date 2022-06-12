@@ -30,13 +30,10 @@ final class SpeechRecognizerManager {
                 if let result = result, result.isFinal {
                     completion(result.bestTranscription.formattedString,
                                result.bestTranscription.segments.map({ seg in
-                        return Segment(segment: seg.substring, timeStramp: seg.timestamp)
+                        return Segment(segment: seg.substring,
+                                       timeStramp: seg.timestamp,
+                                       confidence: seg.confidence * 100)
                     }))
-//                    result.bestTranscription.segments.forEach { segment in
-//                        print(segment.substring)
-//                        print("time stamp: \(segment.timestamp)")
-//                        print("Confidence: \(segment.confidence)")
-//                    }
                 }
             })
         }
