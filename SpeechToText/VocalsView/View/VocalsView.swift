@@ -37,7 +37,7 @@ struct VocalsView: View {
                                 .foregroundColor(.green)
                                 .frame(width: 48, height: 48)
                             }
-                            Text(rec.transcription)
+                            Text(rec.segmentWithTime)
                         }
                         
                     }

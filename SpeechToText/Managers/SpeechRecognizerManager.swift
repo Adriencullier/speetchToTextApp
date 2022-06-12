@@ -13,10 +13,10 @@ final class SpeechRecognizerManager {
     
     init() {}
     
-    private let recognizer = SFSpeechRecognizer.init(locale: Locale.current)
+    private let recognizer = SFSpeechRecognizer.init(locale: Locale.init(identifier: "FR"))
     
     func transcribe(from url: URL,
-                    completion: @escaping (String) -> Void) {
+                    completion: @escaping (String, [Segment]) -> Void) {
         SFSpeechRecognizer.requestAuthorization { authStatus in
             guard authStatus == .authorized else {
                 print("Authorisation denied")
@@ -28,12 +28,15 @@ final class SpeechRecognizerManager {
                     return
                 }
                 if let result = result, result.isFinal {
-                    completion(result.bestTranscription.formattedString)
-                    result.bestTranscription.segments.forEach { segment in
-                        print(segment.substring)
-                        print("time stamp: \(segment.timestamp)")
-                        print("Confidence: \(segment.confidence)")
-                    }
+                    completion(result.bestTranscription.formattedString,
+                               result.bestTranscription.segments.map({ seg in
+                        return Segment(segment: seg.substring, timeStramp: seg.timestamp)
+                    }))
+//                    result.bestTranscription.segments.forEach { segment in
+//                        print(segment.substring)
+//                        print("time stamp: \(segment.timestamp)")
+//                        print("Confidence: \(segment.confidence)")
+//                    }
                 }
             })
         }
