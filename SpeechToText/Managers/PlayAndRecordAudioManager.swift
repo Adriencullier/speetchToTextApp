@@ -7,10 +7,12 @@
 
 import AVFoundation
 
-final class AudioManager {
-    static let shared = AudioManager()
-    var audioRecorder : AVAudioRecorder!
-    var audioPlayer : AVAudioPlayer!
+final class PlayAndRecordAudioManager {
+    
+    static let shared = PlayAndRecordAudioManager()
+    
+    private var audioRecorder : AVAudioRecorder!
+    private var audioPlayer : AVAudioPlayer!
     
     init() {
         self.initializeAudioSession()
@@ -58,11 +60,13 @@ final class AudioManager {
         self.audioRecorder.record()
     }
     
-    func stopRecording(completion: (Record) -> Void) {
+    func stopRecording(completion: @escaping (Record) -> Void) {
         guard let audioRecorder = audioRecorder, audioRecorder.isRecording else { return }
         audioRecorder.stop()
-        completion(Record(url: audioRecorder.url,
-                          title: Date().description))
+        _ = Record(url: audioRecorder.url,
+                   title: Date().description) { record in
+            completion(record)
+        }
     }
     
     private func getFileName() -> URL {

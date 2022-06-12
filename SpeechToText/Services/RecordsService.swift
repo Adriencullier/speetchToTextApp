@@ -11,19 +11,21 @@ final class RecordsService: ObservableObject {
     @Published private(set) var vocals: [Record] = []
     
     init() {
-        self.resetFileManager()
+        #warning("clean init()")
+        self.fetchFileManager()
+//        self.resetFileManager()
     }
     
     func playRecord(record: Record) {
-        AudioManager.shared.playRecord(record: record)
+        PlayAndRecordAudioManager.shared.playRecord(record: record)
     }
     
     func startRecording() {
-        AudioManager.shared.startRecording()
+        PlayAndRecordAudioManager.shared.startRecording()
     }
     
     func stopRecording() {
-        AudioManager.shared.stopRecording { recording in
+        PlayAndRecordAudioManager.shared.stopRecording { recording in
             self.vocals.append(recording)
         }
     }
@@ -31,5 +33,15 @@ final class RecordsService: ObservableObject {
     private func resetFileManager() {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         try? FileManager.default.removeItem(at: path)
+    }
+    
+    private func fetchFileManager() {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let files = try? FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
+        files?.forEach({ file in
+            Record(url: file, title: "") { record in
+                self.vocals.append(record)
+            }
+        })
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct VocalsView: View {
     @ObservedObject private var viewModel: VocalsViewModel
+    @State var transcription: String = ""
     
     init(viewModel: VocalsViewModel) {
         self.viewModel = viewModel
@@ -23,20 +24,25 @@ struct VocalsView: View {
                     .padding()
                 List {
                     ForEach(viewModel.storedRecordings, id: \.id) { rec in
-                        HStack {
-                            Text(rec.title)
-                            Spacer()
-                            Button {
-                                AudioManager.shared.playRecord(record: rec)
-                            } label: {
-                                Image(systemName: "play.circle")
-                                    .resizable()
+                        VStack {
+                            HStack {
+                                Text(rec.title)
+                                Spacer()
+                                Button {
+                                    PlayAndRecordAudioManager.shared.playRecord(record: rec)
+                                } label: {
+                                    Image(systemName: "play.circle")
+                                        .resizable()
+                                }
+                                .foregroundColor(.green)
+                                .frame(width: 48, height: 48)
                             }
-                            .foregroundColor(.green)
-                            .frame(width: 48, height: 48)
+                            Text(rec.transcription)
                         }
+                        
                     }
                 }
+                
                 Spacer()
                 HStack(spacing: 32) {
                     Button {
