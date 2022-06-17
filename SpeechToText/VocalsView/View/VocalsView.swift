@@ -11,50 +11,58 @@ struct VocalsView: View {
     @ObservedObject var viewModel: VocalsViewModel
     
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.2)
-                .edgesIgnoringSafeArea(.top)
-            VStack(alignment: .center, spacing: 0) {
-                Text("Vocal View")
-                    .padding()
-                List {
-                    if viewModel.storedRecordings.isEmpty,
-                       viewModel.recordIsProcessing {
-                        EmptyRow()
-                    } else {
-                        ForEach(viewModel.storedRecordings, id: \.id) { rec in
-                            VStack(alignment: .center, spacing: 0) {
-                                AudioRow(viewModel: viewModel,
-                                         record: rec)
-                                if viewModel.recordIsProcessing,
-                                   viewModel.storedRecordings.last?.title == rec.title {
-                                    EmptyRow()
+        NavigationView {
+            ZStack {
+                Color.gray.opacity(0.2)
+                    .edgesIgnoringSafeArea(.top)
+                VStack(alignment: .center, spacing: 0) {
+                    List {
+                        if viewModel.storedRecordings.isEmpty,
+                           viewModel.recordIsProcessing {
+                            EmptyRow()
+                        } else {
+                            ForEach(viewModel.storedRecordings, id: \.id) { rec in
+                                VStack(alignment: .center, spacing: 0) {
+                                    NavigationLink(destination: {
+                                        TranscriptionView(title: "Audio Transcription",
+                                                          text: rec.finalTranscription,
+                                                          confidenceLevel: viewModel.getConfidenceLevel(record: rec))
+                                    }) {
+                                        AudioRow(viewModel: viewModel,
+                                                 record: rec)
+                                    }
+                                    if viewModel.recordIsProcessing,
+                                       viewModel.storedRecordings.last?.title == rec.title {
+                                        EmptyRow()
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                Spacer()
-                HStack(spacing: 32) {
-                    Button {
-                        viewModel.recordDidPressed()
-                    } label: {
-                        Image(systemName: "record.circle")
-                            .resizable()
+                    Spacer()
+                    HStack(spacing: 32) {
+                        Button {
+                            viewModel.recordDidPressed()
+                        } label: {
+                            Image(systemName: "record.circle")
+                                .resizable()
+                        }
+                        .foregroundColor(.red)
+                        .frame(width: 48, height: 48)
+                        
+                        Button {
+                            viewModel.stopRecordDidPressed()
+                        } label: {
+                            Image(systemName: "stop.circle")
+                                .resizable()
+                        }
+                        .foregroundColor(.blue)
+                        .frame(width: 48, height: 48)
                     }
-                    .foregroundColor(.red)
-                    .frame(width: 48, height: 48)
-                    
-                    Button {
-                        viewModel.stopRecordDidPressed()
-                    } label: {
-                        Image(systemName: "stop.circle")
-                            .resizable()
-                    }
-                    .foregroundColor(.blue)
-                    .frame(width: 48, height: 48)
                 }
             }
+            .navigationTitle("Read My Voice")
+            .navigationBarTitleDisplayMode(.automatic)
         }
     }
 }
@@ -74,22 +82,24 @@ struct AudioRow: View {
                     .frame(width: K.titleSize.width,
                            height: K.titleSize.height)
                 Spacer()
-                Button {
-                    self.viewModel.playRecord(record) { currentTime in
-                        self.progressBarValue = viewModel.getProgressbarValue(
-                            durationTot: record.totalDuration,
-                            currentTime: currentTime
-                        )
-                        self.currentTime = currentTime
-                    }
-                    if self.currentTime == self.record.totalDuration {
-                        self.currentTime = 0
-                        self.progressBarValue = 0
-                    }
-                } label: {
                     Image(systemName: "play.circle")
                         .resizable()
-                }
+                        .highPriorityGesture(
+                            TapGesture()
+                                .onEnded({ _ in
+                                    self.viewModel.playRecord(record) { currentTime in
+                                        self.progressBarValue = viewModel.getProgressbarValue(
+                                            durationTot: record.totalDuration,
+                                            currentTime: currentTime
+                                        )
+                                        self.currentTime = currentTime
+                                    }
+                                    if self.currentTime == self.record.totalDuration {
+                                        self.currentTime = 0
+                                        self.progressBarValue = 0
+                                    }
+                                })
+                        )
                 .foregroundColor(.green)
                 .frame(width: K.playButtonSize.width,
                        height: K.playButtonSize.height)
@@ -159,5 +169,79 @@ struct EmptyRow: View {
             }
         }.frame(alignment: .center)
             .padding(.vertical)
+    }
+}
+
+struct TranscriptionView: View {
+    let title: String
+    let text: String
+    let confidenceLevel: ConfidenceLevel
+    var confidenceStr: String {
+        return "("
+        + confidenceLevel.smiley
+        + " "
+        + "Niveau de confiance"
+        + " "
+        + confidenceLevel.description
+        + " "
+        + confidenceLevel.smiley
+        + ")"
+    }
+    var body: some View {
+        VStack(spacing: 4) {
+            HStack {
+                Text(text)
+                    .padding(.top)
+                Spacer()
+            }
+            HStack {
+                Spacer()
+                Text(confidenceStr)
+                    .foregroundColor(confidenceLevel.color)
+            }
+            Spacer()
+        }
+        .frame(width: 400)
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.automatic)
+    }
+}
+
+enum ConfidenceLevel {
+    case good
+    case medium
+    case bad
+    
+    var description: String {
+        switch self {
+        case .good:
+            return "Bon"
+        case .medium:
+            return "Moyen"
+        case .bad:
+            return "Mauvais"
+        }
+    }
+    
+    var smiley: String {
+        switch self {
+        case .good:
+            return "🤩"
+        case .medium:
+            return "🤔"
+        case .bad:
+            return "🤬"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .good:
+            return .green
+        case .medium:
+            return .orange
+        case .bad:
+            return .red
+        }
     }
 }
