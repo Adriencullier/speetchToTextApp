@@ -49,7 +49,6 @@ struct VocalsView: View {
     }
 }
 
-
 struct AudioRow: View {
     @ObservedObject var viewModel: VocalsViewModel
     

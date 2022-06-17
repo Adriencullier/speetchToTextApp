@@ -50,7 +50,7 @@ final class AudioWithTranscriptionManager: NSObject, SpeechRecognizerAccessProto
             self.audioPlayer.prepareToPlay()
             self.audioPlayer.play()
             
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.001,
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.000001,
                                               repeats: true) { [weak self] _ in
                 guard let `self` = self else { return }
                 completion(self.audioPlayer.currentTime)
