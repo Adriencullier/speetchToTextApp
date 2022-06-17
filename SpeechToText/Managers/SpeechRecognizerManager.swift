@@ -8,6 +8,13 @@
 import Foundation
 import Speech
 
+protocol SpeechRecognizerAccessProtocol {}
+extension SpeechRecognizerAccessProtocol {
+    var speechRecognizerManager: SpeechRecognizerManager {
+        return SpeechRecognizerManager.shared
+    }
+}
+
 final class SpeechRecognizerManager {
     static let shared: SpeechRecognizerManager = SpeechRecognizerManager()
     

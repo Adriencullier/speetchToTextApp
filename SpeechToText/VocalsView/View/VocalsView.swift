@@ -8,12 +8,7 @@
 import SwiftUI
 
 struct VocalsView: View {
-    @ObservedObject private var viewModel: VocalsViewModel
-    @State var transcription: String = ""
-    
-    init(viewModel: VocalsViewModel) {
-        self.viewModel = viewModel
-    }
+    @ObservedObject var viewModel: VocalsViewModel
     
     var body: some View {
         ZStack {
@@ -24,29 +19,14 @@ struct VocalsView: View {
                     .padding()
                 List {
                     ForEach(viewModel.storedRecordings, id: \.id) { rec in
-                        VStack {
-                            HStack {
-                                Text(rec.title)
-                                Spacer()
-                                Button {
-                                    PlayAndRecordAudioManager.shared.playRecord(record: rec)
-                                } label: {
-                                    Image(systemName: "play.circle")
-                                        .resizable()
-                                }
-                                .foregroundColor(.green)
-                                .frame(width: 48, height: 48)
-                            }
-                            Text(rec.segmentWithTime)
-                        }
-                        
+                        AudioRow(viewModel: viewModel,
+                                 record: rec)
                     }
                 }
-                
                 Spacer()
                 HStack(spacing: 32) {
                     Button {
-                        viewModel.startDidPressed()
+                        viewModel.recordDidPressed()
                     } label: {
                         Image(systemName: "record.circle")
                             .resizable()
@@ -55,7 +35,7 @@ struct VocalsView: View {
                     .frame(width: 48, height: 48)
                     
                     Button {
-                        viewModel.stopDidPressed()
+                        viewModel.stopRecordDidPressed()
                         
                     } label: {
                         Image(systemName: "stop.circle")
@@ -66,5 +46,66 @@ struct VocalsView: View {
                 }
             }
         }
+    }
+}
+
+
+struct AudioRow: View {
+    @ObservedObject var viewModel: VocalsViewModel
+    
+    @State var currentTime: TimeInterval = 0
+    @State var progressBarValue: CGFloat = 0
+    
+    let record: AudioWithTranscription
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text(record.title)
+                Spacer()
+                Button {
+                    self.viewModel.playRecord(record) { currentTime in
+                        self.progressBarValue = getProgressbarUnit(
+                            durationTot: record.totalDuration,
+                            currentTime: currentTime
+                        )
+                        self.currentTime = currentTime
+                    }
+                    if currentTime == record.totalDuration {
+                        self.currentTime = 0
+                        self.progressBarValue = 0
+                    }
+                } label: {
+                    Image(systemName: "play.circle")
+                        .resizable()
+                }
+                .foregroundColor(.green)
+                .frame(width: 48, height: 48)
+            }
+            HStack {
+                Text("\(self.currentTime.rounded())")
+                ZStack(alignment: .leading) {
+                    Capsule().fill(Color.black.opacity(0.08)).frame(width: 250,
+                                                                    height: 8)
+                    Capsule().fill(Color.blue).frame(width: progressBarValue,
+                                                     height: 8)
+                    
+                    ForEach(record.finalTranscriptionSegments.filter({ seg in
+                        seg.segment == "voiture"
+                    }), id: \.id) { seg in
+                        Circle().foregroundColor(.red).frame(width: 10,
+                                                             height: 10)
+                        .offset(x: getProgressbarUnit(
+                            durationTot: record.totalDuration,
+                            currentTime: seg.timeStramp)
+                        )
+                    }
+                }
+                Text(String(format: "%.1f", record.totalDuration.rounded()))
+            }
+        }
+    }
+    private func getProgressbarUnit(durationTot: CGFloat, currentTime: CGFloat) -> CGFloat {
+        return (250 / durationTot) * currentTime
     }
 }

@@ -7,25 +7,25 @@
 
 import Foundation
 
-final class RecordsService: ObservableObject {
-    @Published private(set) var vocals: [Record] = []
+final class RecordsService: ObservableObject, PlayAndRecordAudioAccessProtocol {
+    @Published private(set) var vocals: [AudioWithTranscription] = []
     
     init() {
-        #warning("clean init()")
-        self.fetchFileManager()
-//        self.resetFileManager()
+        self.resetFileManager()
     }
     
-    func playRecord(record: Record) {
-        PlayAndRecordAudioManager.shared.playRecord(record: record)
+    func playRecord(record: AudioWithTranscription, completion: @escaping (TimeInterval) -> Void) {
+        playAndRecordAudioManager.playRecord(record: record) { currentTime in
+            completion(currentTime)
+        }
     }
     
     func startRecording() {
-        PlayAndRecordAudioManager.shared.startRecording()
+        playAndRecordAudioManager.startRecording()
     }
     
     func stopRecording() {
-        PlayAndRecordAudioManager.shared.stopRecording { recording in
+        playAndRecordAudioManager.stopRecording { recording in
             self.vocals.append(recording)
         }
     }
@@ -33,15 +33,5 @@ final class RecordsService: ObservableObject {
     private func resetFileManager() {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         try? FileManager.default.removeItem(at: path)
-    }
-    
-    private func fetchFileManager() {
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let files = try? FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
-        files?.forEach({ file in
-            Record(url: file, title: "") { record in
-                self.vocals.append(record)
-            }
-        })
     }
 }

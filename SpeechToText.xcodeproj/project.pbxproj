@@ -10,9 +10,9 @@
 		03414CBD2852049200A049BE /* SpeechToTextApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CBC2852049200A049BE /* SpeechToTextApp.swift */; };
 		03414CC12852049500A049BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03414CC02852049500A049BE /* Assets.xcassets */; };
 		03414CC42852049500A049BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03414CC32852049500A049BE /* Preview Assets.xcassets */; };
-		03414CCC285213CF00A049BE /* PlayAndRecordAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CCB285213CF00A049BE /* PlayAndRecordAudioManager.swift */; };
+		03414CCC285213CF00A049BE /* AudioWithTranscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CCB285213CF00A049BE /* AudioWithTranscriptionManager.swift */; };
 		03414CCF285319DF00A049BE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CCE285319DF00A049BE /* TabBarView.swift */; };
-		03414CD228531A1100A049BE /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CD128531A1100A049BE /* Record.swift */; };
+		03414CD228531A1100A049BE /* AudioWithTranscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CD128531A1100A049BE /* AudioWithTranscription.swift */; };
 		03414CD528531AC000A049BE /* RecordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CD428531AC000A049BE /* RecordsService.swift */; };
 		03414CD928531B7200A049BE /* VocalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CD828531B7200A049BE /* VocalsViewModel.swift */; };
 		03A6985D28531CA000149B70 /* TextsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6985C28531CA000149B70 /* TextsView.swift */; };
@@ -28,9 +28,9 @@
 		03414CC02852049500A049BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03414CC32852049500A049BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		03414CCA28520C7F00A049BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		03414CCB285213CF00A049BE /* PlayAndRecordAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAndRecordAudioManager.swift; sourceTree = "<group>"; };
+		03414CCB285213CF00A049BE /* AudioWithTranscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWithTranscriptionManager.swift; sourceTree = "<group>"; };
 		03414CCE285319DF00A049BE /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
-		03414CD128531A1100A049BE /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		03414CD128531A1100A049BE /* AudioWithTranscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWithTranscription.swift; sourceTree = "<group>"; };
 		03414CD428531AC000A049BE /* RecordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsService.swift; sourceTree = "<group>"; };
 		03414CD828531B7200A049BE /* VocalsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalsViewModel.swift; sourceTree = "<group>"; };
 		03A6985C28531CA000149B70 /* TextsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsView.swift; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 		03414CD028531A0000A049BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				03414CD128531A1100A049BE /* Record.swift */,
+				03414CD128531A1100A049BE /* AudioWithTranscription.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -161,7 +161,7 @@
 		03A6986228531D1C00149B70 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				03414CCB285213CF00A049BE /* PlayAndRecordAudioManager.swift */,
+				03414CCB285213CF00A049BE /* AudioWithTranscriptionManager.swift */,
 				03A6986628531FE900149B70 /* ServicesManager.swift */,
 				03DB64DA2855BA6000423543 /* SpeechRecognizerManager.swift */,
 			);
@@ -251,8 +251,8 @@
 				03A6986728531FE900149B70 /* ServicesManager.swift in Sources */,
 				03414CD928531B7200A049BE /* VocalsViewModel.swift in Sources */,
 				03A6986128531CED00149B70 /* VocalsView.swift in Sources */,
-				03414CCC285213CF00A049BE /* PlayAndRecordAudioManager.swift in Sources */,
-				03414CD228531A1100A049BE /* Record.swift in Sources */,
+				03414CCC285213CF00A049BE /* AudioWithTranscriptionManager.swift in Sources */,
+				03414CD228531A1100A049BE /* AudioWithTranscription.swift in Sources */,
 				03A6985D28531CA000149B70 /* TextsView.swift in Sources */,
 				03A6986528531FBA00149B70 /* VocalsViewBuilder.swift in Sources */,
 				03414CCF285319DF00A049BE /* TabBarView.swift in Sources */,
