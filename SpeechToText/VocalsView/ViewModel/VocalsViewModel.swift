@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
 
 final class VocalsViewModel: ObservableObject {
     @Published var storedRecordings: [AudioWithTranscription] = []
@@ -33,6 +33,11 @@ final class VocalsViewModel: ObservableObject {
         recordsService.playRecord(record: rec) { time in
             completion(time)
         }
+    }
+    
+    func getProgressbarValue(durationTot: CGFloat,
+                            currentTime: CGFloat) -> CGFloat {
+        return (250 * currentTime) / durationTot 
     }
     
     private func observeService() {

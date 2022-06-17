@@ -65,13 +65,13 @@ struct AudioRow: View {
                 Spacer()
                 Button {
                     self.viewModel.playRecord(record) { currentTime in
-                        self.progressBarValue = getProgressbarUnit(
+                        self.progressBarValue = viewModel.getProgressbarValue(
                             durationTot: record.totalDuration,
                             currentTime: currentTime
                         )
                         self.currentTime = currentTime
                     }
-                    if currentTime == record.totalDuration {
+                    if self.currentTime == self.record.totalDuration {
                         self.currentTime = 0
                         self.progressBarValue = 0
                     }
@@ -83,7 +83,8 @@ struct AudioRow: View {
                 .frame(width: 48, height: 48)
             }
             HStack {
-                Text("\(self.currentTime.rounded())")
+                Text(self.currentTime.minuteAndSecondToString())
+                    .frame(width: 40)
                 ZStack(alignment: .leading) {
                     Capsule().fill(Color.black.opacity(0.08)).frame(width: 250,
                                                                     height: 8)
@@ -95,17 +96,15 @@ struct AudioRow: View {
                     }), id: \.id) { seg in
                         Circle().foregroundColor(.red).frame(width: 10,
                                                              height: 10)
-                        .offset(x: getProgressbarUnit(
+                        .offset(x: viewModel.getProgressbarValue(
                             durationTot: record.totalDuration,
-                            currentTime: seg.timeStramp)
-                        )
+                            currentTime: seg.timeStramp
+                        ))
                     }
                 }
-                Text(String(format: "%.1f", record.totalDuration.rounded()))
+                Text(record.totalDuration.minuteAndSecondToString())
+                    .frame(width: 40)
             }
         }
-    }
-    private func getProgressbarUnit(durationTot: CGFloat, currentTime: CGFloat) -> CGFloat {
-        return (250 / durationTot) * currentTime
     }
 }
