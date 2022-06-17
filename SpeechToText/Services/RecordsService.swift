@@ -9,6 +9,7 @@ import Foundation
 
 final class RecordsService: ObservableObject, PlayAndRecordAudioAccessProtocol {
     @Published private(set) var vocals: [AudioWithTranscription] = []
+    @Published private(set) var recordIsProcessing: Bool = false
     
     init() {
         self.resetFileManager()
@@ -25,8 +26,12 @@ final class RecordsService: ObservableObject, PlayAndRecordAudioAccessProtocol {
     }
     
     func stopRecording() {
+        if self.playAndRecordAudioManager.isRecording {
+            self.recordIsProcessing = true
+        }
         playAndRecordAudioManager.stopRecording { recording in
             self.vocals.append(recording)
+            self.recordIsProcessing = false
         }
     }
     

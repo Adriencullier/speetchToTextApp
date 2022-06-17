@@ -16,6 +16,7 @@
 		03414CD528531AC000A049BE /* RecordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CD428531AC000A049BE /* RecordsService.swift */; };
 		03414CD928531B7200A049BE /* VocalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CD828531B7200A049BE /* VocalsViewModel.swift */; };
 		03834370285CBEB600D2F98D /* TimeInterval+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383436F285CBEB600D2F98D /* TimeInterval+Utils.swift */; };
+		03834373285CD18800D2F98D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03834372285CD18800D2F98D /* Constants.swift */; };
 		03A6985D28531CA000149B70 /* TextsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6985C28531CA000149B70 /* TextsView.swift */; };
 		03A6986128531CED00149B70 /* VocalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6986028531CED00149B70 /* VocalsView.swift */; };
 		03A6986528531FBA00149B70 /* VocalsViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6986428531FBA00149B70 /* VocalsViewBuilder.swift */; };
@@ -35,6 +36,7 @@
 		03414CD428531AC000A049BE /* RecordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsService.swift; sourceTree = "<group>"; };
 		03414CD828531B7200A049BE /* VocalsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalsViewModel.swift; sourceTree = "<group>"; };
 		0383436F285CBEB600D2F98D /* TimeInterval+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Utils.swift"; sourceTree = "<group>"; };
+		03834372285CD18800D2F98D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		03A6985C28531CA000149B70 /* TextsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsView.swift; sourceTree = "<group>"; };
 		03A6986028531CED00149B70 /* VocalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalsView.swift; sourceTree = "<group>"; };
 		03A6986428531FBA00149B70 /* VocalsViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalsViewBuilder.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 		03414CBB2852049200A049BE /* SpeechToText */ = {
 			isa = PBXGroup;
 			children = (
+				03834371285CD17C00D2F98D /* Constants */,
 				0383436E285CBEA800D2F98D /* Extensions */,
 				03A6986228531D1C00149B70 /* Managers */,
 				03A6985B28531C9200149B70 /* TextsView */,
@@ -143,6 +146,14 @@
 				0383436F285CBEB600D2F98D /* TimeInterval+Utils.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		03834371285CD17C00D2F98D /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				03834372285CD18800D2F98D /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		03A6985B28531C9200149B70 /* TextsView */ = {
@@ -264,6 +275,7 @@
 				03414CD928531B7200A049BE /* VocalsViewModel.swift in Sources */,
 				03A6986128531CED00149B70 /* VocalsView.swift in Sources */,
 				03414CCC285213CF00A049BE /* AudioWithTranscriptionManager.swift in Sources */,
+				03834373285CD18800D2F98D /* Constants.swift in Sources */,
 				03414CD228531A1100A049BE /* AudioWithTranscription.swift in Sources */,
 				03A6985D28531CA000149B70 /* TextsView.swift in Sources */,
 				03A6986528531FBA00149B70 /* VocalsViewBuilder.swift in Sources */,

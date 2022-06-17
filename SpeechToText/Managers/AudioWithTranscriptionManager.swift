@@ -23,6 +23,10 @@ final class AudioWithTranscriptionManager: NSObject, SpeechRecognizerAccessProto
     private var audioRecorder : AVAudioRecorder!
     private var audioPlayer : AVAudioPlayer!
     
+    var isRecording: Bool {
+        self.audioRecorder.isRecording
+    }
+    
     override init() {
         super.init()
         self.initializeAudioSession()
@@ -78,7 +82,7 @@ final class AudioWithTranscriptionManager: NSObject, SpeechRecognizerAccessProto
     
     func stopRecording(completion: @escaping (AudioWithTranscription) -> Void) {
         guard let audioRecorder = audioRecorder,
-              audioRecorder.isRecording else { return }
+              self.isRecording else { return }
         let time = audioRecorder.currentTime
         speechRecognizerManager.transcribe(from: audioRecorder.url) { trans, segs in
             completion(

@@ -10,6 +10,7 @@ import SwiftUI
 
 final class VocalsViewModel: ObservableObject {
     @Published var storedRecordings: [AudioWithTranscription] = []
+    @Published var recordIsProcessing: Bool = false
     
     var cancellable = Set<AnyCancellable>()
     
@@ -42,8 +43,14 @@ final class VocalsViewModel: ObservableObject {
     
     private func observeService() {
         self.recordsService.$vocals
-            .sink { recordings in
-                self.storedRecordings = recordings
+            .sink { [weak self] recordings in
+                self?.storedRecordings = recordings
+            }
+            .store(in: &cancellable)
+        
+        self.recordsService.$recordIsProcessing
+            .sink { [weak self] isProcessing in
+                self?.recordIsProcessing = isProcessing
             }
             .store(in: &cancellable)
     }
