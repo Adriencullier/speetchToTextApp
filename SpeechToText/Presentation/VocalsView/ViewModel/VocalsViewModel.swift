@@ -9,24 +9,13 @@ import Combine
 import SwiftUI
 
 final class VocalsViewModel: ObservableObject {
-    @Published var storedRecordings: [AudioWithTranscription] = []
-    @Published var recordIsProcessing: Bool = false
-    
-    var cancellable = Set<AnyCancellable>()
-    
-    func getConfidenceLevel(record: AudioWithTranscription) -> ConfidenceLevel {
-        let medConf = (record.finalTranscriptionSegments.reduce(0) { _, seg in
-            Int(seg.confidence)
-        } * 10) / record.finalTranscriptionSegments.count
-        print(medConf)
-        switch medConf {
-        case 80...: return .good
-        case ...60: return .bad
-        default: return .medium
-        }
-    }
     
     private weak var recordsService: RecordsService!
+    
+    @Published private(set) var storedRecordings: [AudioWithTranscription] = []
+    @Published private(set) var recordIsProcessing: Bool = false
+    
+    var cancellable = Set<AnyCancellable>()
     
     init(recordsService: RecordsService) {
         self.recordsService = recordsService
@@ -43,7 +32,7 @@ final class VocalsViewModel: ObservableObject {
         recordsService.stopRecording()
     }
     
-    func playRecord(_ rec: AudioWithTranscription,
+    func playDidPressed(_ rec: AudioWithTranscription,
                     completion: @escaping (TimeInterval?) -> Void) {
         recordsService.playRecord(record: rec) { time in
             completion(time)
@@ -55,8 +44,20 @@ final class VocalsViewModel: ObservableObject {
         return (250 * currentTime) / durationTot 
     }
     
+    func getConfidenceLevel(record: AudioWithTranscription) -> ConfidenceLevel {
+        let medConf = (record.finalTranscriptionSegments.reduce(0) { _, seg in
+            Int(seg.confPercent)
+        }) / record.finalTranscriptionSegments.count
+
+        switch medConf {
+        case 80...: return .good
+        case ...60: return .bad
+        default: return .medium
+        }
+    }
+    
     private func observeService() {
-        self.recordsService.$vocals
+        self.recordsService.$records
             .sink { [weak self] recordings in
                 self?.storedRecordings = recordings
             }

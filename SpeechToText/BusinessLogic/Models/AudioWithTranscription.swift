@@ -7,13 +7,6 @@
 
 import Foundation
 
-struct Segment {
-    let id = UUID()
-    let segment: String
-    let timeStramp: TimeInterval
-    let confidence: Float
-}
-
 final class AudioWithTranscription {
     let id = UUID()
     /// Url of the recorded audio file

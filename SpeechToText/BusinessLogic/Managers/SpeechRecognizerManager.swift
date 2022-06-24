@@ -8,6 +8,7 @@
 import Foundation
 import Speech
 
+/// Protocol and extension used to hide AudioWithTranscriptionManager singleton
 protocol SpeechRecognizerAccessProtocol {}
 extension SpeechRecognizerAccessProtocol {
     var speechRecognizerManager: SpeechRecognizerManager {
@@ -16,12 +17,18 @@ extension SpeechRecognizerAccessProtocol {
 }
 
 final class SpeechRecognizerManager {
-    static let shared: SpeechRecognizerManager = SpeechRecognizerManager()
+    static fileprivate let shared: SpeechRecognizerManager = SpeechRecognizerManager()
+        
+    /// Set SFSpeechRecognizer locale to France
+    private let recognizer = SFSpeechRecognizer.init(
+        locale: Locale.init(identifier: "FR")
+    )
     
-    init() {}
     
-    private let recognizer = SFSpeechRecognizer.init(locale: Locale.init(identifier: "FR"))
-    
+    /// Used to get transcription from audio file
+    /// - Parameters:
+    ///   - url: url of stored audio
+    ///   - completion: Result<Transcription, Error>
     func transcribe(from url: URL,
                     completion: @escaping (Result<Transcription, Error>) -> Void) {
         SFSpeechRecognizer.requestAuthorization { authStatus in
@@ -34,23 +41,19 @@ final class SpeechRecognizerManager {
                     completion(.failure(error))
                     return
                 }
-                if let result = result, result.isFinal {
+                if let result = result,
+                   result.isFinal {
                     completion(.success(
                         Transcription(
                             bestTranscription: result.bestTranscription.formattedString,
                             segments: result.bestTranscription.segments.map({ seg in
                                 return Segment(segment: seg.substring,
                                                timeStramp: seg.timestamp,
-                                               confidence: seg.confidence * 100)
+                                               confidence: seg.confidence)
                             }))
                     ))
                 }
             })
         }
     }
-}
-
-struct Transcription {
-    var bestTranscription: String
-    var segments: [Segment]
 }

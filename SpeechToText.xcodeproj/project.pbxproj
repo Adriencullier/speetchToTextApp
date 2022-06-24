@@ -15,12 +15,16 @@
 		03414CD228531A1100A049BE /* AudioWithTranscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CD128531A1100A049BE /* AudioWithTranscription.swift */; };
 		03414CD528531AC000A049BE /* RecordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CD428531AC000A049BE /* RecordsService.swift */; };
 		03414CD928531B7200A049BE /* VocalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03414CD828531B7200A049BE /* VocalsViewModel.swift */; };
+		036BF5072865F0D700ACCD3E /* ServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036BF5062865F0D700ACCD3E /* ServicesManager.swift */; };
+		036BF5092865F75300ACCD3E /* Transcription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036BF5082865F75300ACCD3E /* Transcription.swift */; };
+		036BF50B2865F78500ACCD3E /* AudioRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036BF50A2865F78500ACCD3E /* AudioRow.swift */; };
+		036BF50D2865F7A000ACCD3E /* ConfidenceLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036BF50C2865F7A000ACCD3E /* ConfidenceLevel.swift */; };
+		036BF5102865F7D100ACCD3E /* TranscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036BF50F2865F7D100ACCD3E /* TranscriptionView.swift */; };
+		036BF5142865FB0000ACCD3E /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036BF5132865FB0000ACCD3E /* Segment.swift */; };
 		03834370285CBEB600D2F98D /* TimeInterval+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383436F285CBEB600D2F98D /* TimeInterval+Utils.swift */; };
 		03834373285CD18800D2F98D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03834372285CD18800D2F98D /* Constants.swift */; };
-		03A6985D28531CA000149B70 /* TextsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6985C28531CA000149B70 /* TextsView.swift */; };
 		03A6986128531CED00149B70 /* VocalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6986028531CED00149B70 /* VocalsView.swift */; };
 		03A6986528531FBA00149B70 /* VocalsViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6986428531FBA00149B70 /* VocalsViewBuilder.swift */; };
-		03A6986728531FE900149B70 /* ServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6986628531FE900149B70 /* ServicesManager.swift */; };
 		03DB64DB2855BA6000423543 /* SpeechRecognizerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DB64DA2855BA6000423543 /* SpeechRecognizerManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,18 +33,22 @@
 		03414CBC2852049200A049BE /* SpeechToTextApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechToTextApp.swift; sourceTree = "<group>"; };
 		03414CC02852049500A049BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03414CC32852049500A049BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		03414CCA28520C7F00A049BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		03414CCA28520C7F00A049BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03414CCB285213CF00A049BE /* AudioWithTranscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWithTranscriptionManager.swift; sourceTree = "<group>"; };
 		03414CCE285319DF00A049BE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		03414CD128531A1100A049BE /* AudioWithTranscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWithTranscription.swift; sourceTree = "<group>"; };
 		03414CD428531AC000A049BE /* RecordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsService.swift; sourceTree = "<group>"; };
 		03414CD828531B7200A049BE /* VocalsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalsViewModel.swift; sourceTree = "<group>"; };
+		036BF5062865F0D700ACCD3E /* ServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesManager.swift; sourceTree = "<group>"; };
+		036BF5082865F75300ACCD3E /* Transcription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcription.swift; sourceTree = "<group>"; };
+		036BF50A2865F78500ACCD3E /* AudioRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRow.swift; sourceTree = "<group>"; };
+		036BF50C2865F7A000ACCD3E /* ConfidenceLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidenceLevel.swift; sourceTree = "<group>"; };
+		036BF50F2865F7D100ACCD3E /* TranscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionView.swift; sourceTree = "<group>"; };
+		036BF5132865FB0000ACCD3E /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
 		0383436F285CBEB600D2F98D /* TimeInterval+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Utils.swift"; sourceTree = "<group>"; };
 		03834372285CD18800D2F98D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		03A6985C28531CA000149B70 /* TextsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsView.swift; sourceTree = "<group>"; };
 		03A6986028531CED00149B70 /* VocalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalsView.swift; sourceTree = "<group>"; };
 		03A6986428531FBA00149B70 /* VocalsViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalsViewBuilder.swift; sourceTree = "<group>"; };
-		03A6986628531FE900149B70 /* ServicesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesManager.swift; sourceTree = "<group>"; };
 		03DB64DA2855BA6000423543 /* SpeechRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,17 +82,10 @@
 		03414CBB2852049200A049BE /* SpeechToText */ = {
 			isa = PBXGroup;
 			children = (
-				03834371285CD17C00D2F98D /* Constants */,
-				0383436E285CBEA800D2F98D /* Extensions */,
-				03A6986228531D1C00149B70 /* Managers */,
-				03A6985B28531C9200149B70 /* TextsView */,
-				03414CD628531B5E00A049BE /* VocalsView */,
-				03414CD328531AB300A049BE /* Services */,
-				03414CD028531A0000A049BE /* Models */,
-				03414CCD285319D100A049BE /* TabBarView */,
 				03414CCA28520C7F00A049BE /* Info.plist */,
-				03414CBC2852049200A049BE /* SpeechToTextApp.swift */,
-				03414CC02852049500A049BE /* Assets.xcassets */,
+				036BF5172865FB9900ACCD3E /* Resources */,
+				036BF5152865FB6900ACCD3E /* BusinessLogic */,
+				036BF5122865F83400ACCD3E /* Presentation */,
 				03414CC22852049500A049BE /* Preview Content */,
 			);
 			path = SpeechToText;
@@ -98,18 +99,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		03414CCD285319D100A049BE /* TabBarView */ = {
+		03414CCD285319D100A049BE /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
 				03414CCE285319DF00A049BE /* HomeView.swift */,
 			);
-			path = TabBarView;
+			path = HomeView;
 			sourceTree = "<group>";
 		};
 		03414CD028531A0000A049BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				03414CD128531A1100A049BE /* AudioWithTranscription.swift */,
+				036BF50C2865F7A000ACCD3E /* ConfidenceLevel.swift */,
+				036BF5132865FB0000ACCD3E /* Segment.swift */,
+				036BF5082865F75300ACCD3E /* Transcription.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -117,6 +121,7 @@
 		03414CD328531AB300A049BE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				036BF5062865F0D700ACCD3E /* ServicesManager.swift */,
 				03414CD428531AC000A049BE /* RecordsService.swift */,
 			);
 			path = Services;
@@ -140,6 +145,61 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		036BF50E2865F7C200ACCD3E /* TranscriptionView */ = {
+			isa = PBXGroup;
+			children = (
+				036BF5112865F7DA00ACCD3E /* View */,
+			);
+			path = TranscriptionView;
+			sourceTree = "<group>";
+		};
+		036BF5112865F7DA00ACCD3E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				036BF50F2865F7D100ACCD3E /* TranscriptionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		036BF5122865F83400ACCD3E /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				03414CCD285319D100A049BE /* HomeView */,
+				036BF50E2865F7C200ACCD3E /* TranscriptionView */,
+				03414CD628531B5E00A049BE /* VocalsView */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		036BF5152865FB6900ACCD3E /* BusinessLogic */ = {
+			isa = PBXGroup;
+			children = (
+				036BF5162865FB8200ACCD3E /* App */,
+				03834371285CD17C00D2F98D /* Constants */,
+				0383436E285CBEA800D2F98D /* Extensions */,
+				03A6986228531D1C00149B70 /* Managers */,
+				03414CD328531AB300A049BE /* Services */,
+				03414CD028531A0000A049BE /* Models */,
+			);
+			path = BusinessLogic;
+			sourceTree = "<group>";
+		};
+		036BF5162865FB8200ACCD3E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				03414CBC2852049200A049BE /* SpeechToTextApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		036BF5172865FB9900ACCD3E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				03414CC02852049500A049BE /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		0383436E285CBEA800D2F98D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,26 +216,11 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		03A6985B28531C9200149B70 /* TextsView */ = {
-			isa = PBXGroup;
-			children = (
-				03A6985E28531CAA00149B70 /* View */,
-			);
-			path = TextsView;
-			sourceTree = "<group>";
-		};
-		03A6985E28531CAA00149B70 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				03A6985C28531CA000149B70 /* TextsView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		03A6985F28531CE500149B70 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				03A6986028531CED00149B70 /* VocalsView.swift */,
+				036BF50A2865F78500ACCD3E /* AudioRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -184,7 +229,6 @@
 			isa = PBXGroup;
 			children = (
 				03414CCB285213CF00A049BE /* AudioWithTranscriptionManager.swift */,
-				03A6986628531FE900149B70 /* ServicesManager.swift */,
 				03DB64DA2855BA6000423543 /* SpeechRecognizerManager.swift */,
 			);
 			path = Managers;
@@ -268,18 +312,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				036BF5092865F75300ACCD3E /* Transcription.swift in Sources */,
+				036BF50B2865F78500ACCD3E /* AudioRow.swift in Sources */,
 				03DB64DB2855BA6000423543 /* SpeechRecognizerManager.swift in Sources */,
 				03414CD528531AC000A049BE /* RecordsService.swift in Sources */,
-				03A6986728531FE900149B70 /* ServicesManager.swift in Sources */,
+				036BF5072865F0D700ACCD3E /* ServicesManager.swift in Sources */,
 				03834370285CBEB600D2F98D /* TimeInterval+Utils.swift in Sources */,
 				03414CD928531B7200A049BE /* VocalsViewModel.swift in Sources */,
 				03A6986128531CED00149B70 /* VocalsView.swift in Sources */,
 				03414CCC285213CF00A049BE /* AudioWithTranscriptionManager.swift in Sources */,
 				03834373285CD18800D2F98D /* Constants.swift in Sources */,
+				036BF50D2865F7A000ACCD3E /* ConfidenceLevel.swift in Sources */,
 				03414CD228531A1100A049BE /* AudioWithTranscription.swift in Sources */,
-				03A6985D28531CA000149B70 /* TextsView.swift in Sources */,
 				03A6986528531FBA00149B70 /* VocalsViewBuilder.swift in Sources */,
+				036BF5102865F7D100ACCD3E /* TranscriptionView.swift in Sources */,
 				03414CCF285319DF00A049BE /* HomeView.swift in Sources */,
+				036BF5142865FB0000ACCD3E /* Segment.swift in Sources */,
 				03414CBD2852049200A049BE /* SpeechToTextApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,7 +461,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SpeechToText/Info.plist;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "“Audio is recorded to transcribe the meeting. Audio recordings are discarded after transcription.”";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "“You can view a text transcription of your meeting in the app.”";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -445,7 +493,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SpeechToText/Info.plist;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "“Audio is recorded to transcribe the meeting. Audio recordings are discarded after transcription.”";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "“You can view a text transcription of your meeting in the app.”";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
