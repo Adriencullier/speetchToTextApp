@@ -177,15 +177,13 @@ struct TranscriptionView: View {
     let text: String
     let confidenceLevel: ConfidenceLevel
     var confidenceStr: String {
-        return "("
-        + confidenceLevel.smiley
+        return confidenceLevel.smiley
         + " "
         + "Niveau de confiance"
         + " "
         + confidenceLevel.description
         + " "
         + confidenceLevel.smiley
-        + ")"
     }
     var body: some View {
         VStack(spacing: 4) {

@@ -20,8 +20,8 @@ final class VocalsViewModel: ObservableObject {
         } * 10) / record.finalTranscriptionSegments.count
         print(medConf)
         switch medConf {
-        case 95...: return .good
-        case ...80: return .bad
+        case 80...: return .good
+        case ...60: return .bad
         default: return .medium
         }
     }
