@@ -15,7 +15,7 @@ struct SpeechToTextApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TabBarView(servicesManager: servicesManager)
+            HomeView(servicesManager: servicesManager)
         }
     }
 }

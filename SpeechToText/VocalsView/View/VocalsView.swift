@@ -16,8 +16,6 @@ struct VocalsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray.opacity(0.2)
-                    .edgesIgnoringSafeArea(.top)
                 VStack(alignment: .center, spacing: 0) {
                     ZStack {
                         List {
