@@ -14,6 +14,8 @@ struct AudioRow: View {
     @State var currentTime: TimeInterval = 0
     @State var progressBarValue: CGFloat = 0
     
+    @Binding var query: String
+    
     let record: AudioWithTranscription
     
     var body: some View {
@@ -56,7 +58,7 @@ struct AudioRow: View {
                                                      height: 8)
                     
                     ForEach(record.finalTranscriptionSegments.filter({ seg in
-                        seg.segment == "voiture"
+                        self.query.lowercased().contains(seg.segment)
                     }), id: \.id) { seg in
                         Circle().foregroundColor(.red).frame(width: 10,
                                                              height: 10)
@@ -70,7 +72,8 @@ struct AudioRow: View {
                     .frame(width: K.timeSize.width,
                            height: K.timeSize.height)
             }
-        }.frame(alignment: .center)
-            .padding(.vertical)
+        }
+        .frame(alignment: .center)
+        .padding(.vertical)
     }
 }

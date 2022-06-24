@@ -12,11 +12,20 @@ struct VocalsView: View {
     
     @State private var isRecording = false
     @State private var recordTime: TimeInterval = 0
+    @State private var query: String = ""
     
     var body: some View {
         NavigationView {
             ZStack {
                 VStack(alignment: .center, spacing: 0) {
+                    TextField("", text: $query)
+                        .foregroundColor(.black)
+                        .padding(16)
+                        .background(Color.white)
+                        .clipShape(
+                            RoundedRectangle(cornerRadius: 8)
+                        )
+                        .padding()
                     ZStack {
                         List {
                             if viewModel.storedRecordings.isEmpty,
@@ -31,6 +40,7 @@ struct VocalsView: View {
                                                               confidenceLevel: viewModel.getConfidenceLevel(record: rec))
                                         }) {
                                             AudioRow(viewModel: viewModel,
+                                                     query: $query,
                                                      record: rec)
                                         }
                                         if viewModel.recordIsProcessing,
@@ -81,6 +91,7 @@ struct VocalsView: View {
             }
             .navigationTitle("Read My Voice")
             .navigationBarTitleDisplayMode(.automatic)
+            .ignoresSafeArea(.keyboard, edges: .all)
         }
     }
 }
