@@ -15,23 +15,32 @@ final class RecordsService: ObservableObject, PlayAndRecordAudioAccessProtocol {
         self.resetFileManager()
     }
     
-    func playRecord(record: AudioWithTranscription, completion: @escaping (TimeInterval) -> Void) {
+    func playRecord(record: AudioWithTranscription, completion: @escaping (TimeInterval?) -> Void) {
         playAndRecordAudioManager.playRecord(record: record) { currentTime in
             completion(currentTime)
         }
     }
     
-    func startRecording() {
-        playAndRecordAudioManager.startRecording()
+    func startRecording(completion: @escaping (TimeInterval?) -> Void) {
+        if !self.playAndRecordAudioManager.isRecording {
+            playAndRecordAudioManager.startRecording { currentTime in
+                    completion(currentTime)
+            }
+        }
     }
     
     func stopRecording() {
         if self.playAndRecordAudioManager.isRecording {
             self.recordIsProcessing = true
-        }
-        playAndRecordAudioManager.stopRecording { recording in
-            self.vocals.append(recording)
-            self.recordIsProcessing = false
+            playAndRecordAudioManager.stopRecording { result in
+                switch result {
+                case .success(let audioTrans):
+                    self.vocals.append(audioTrans)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                self.recordIsProcessing = false
+            }
         }
     }
     

@@ -18,13 +18,14 @@ final class AudioWithTranscriptionManager: NSObject, SpeechRecognizerAccessProto
     
     static let shared = AudioWithTranscriptionManager()
     
-    private var timer: Timer?
+    private var playTimer: Timer?
+    private var recordTimer: Timer?
     
-    private var audioRecorder : AVAudioRecorder!
-    private var audioPlayer : AVAudioPlayer!
+    private var audioRecorder : AVAudioRecorder?
+    private var audioPlayer : AVAudioPlayer?
     
     var isRecording: Bool {
-        self.audioRecorder.isRecording
+        self.audioRecorder?.isRecording ?? false
     }
     
     override init() {
@@ -47,24 +48,24 @@ final class AudioWithTranscriptionManager: NSObject, SpeechRecognizerAccessProto
     }
     
     func playRecord(record: AudioWithTranscription,
-                    completion: @escaping (TimeInterval) -> Void) {
+                    completion: @escaping (TimeInterval?) -> Void) {
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf : record.url)
-            self.audioPlayer.delegate =  self
-            self.audioPlayer.prepareToPlay()
-            self.audioPlayer.play()
+            self.audioPlayer?.delegate =  self
+            self.audioPlayer?.prepareToPlay()
+            self.audioPlayer?.play()
             
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.000001,
+            self.playTimer = Timer.scheduledTimer(withTimeInterval: 0.000001,
                                               repeats: true) { [weak self] _ in
                 guard let `self` = self else { return }
-                completion(self.audioPlayer.currentTime)
+                completion(self.audioPlayer?.currentTime)
             }
         } catch {
             print("Playing failed")
         }
     }
     
-    func startRecording() {
+    func startRecording(completion: @escaping (TimeInterval?) -> Void) {
         do {
             self.audioRecorder = try AVAudioRecorder(url: self.getFileName(),
                                                      settings: [
@@ -76,24 +77,35 @@ final class AudioWithTranscriptionManager: NSObject, SpeechRecognizerAccessProto
         } catch {
             print("failed to record")
         }
-        self.audioRecorder.prepareToRecord()
-        self.audioRecorder.record()
+        self.audioRecorder?.prepareToRecord()
+        self.audioRecorder?.record()
+        self.playTimer = Timer.scheduledTimer(withTimeInterval: 0.000001,
+                                          repeats: true) { [weak self] _ in
+            guard let `self` = self else { return }
+            completion(self.audioRecorder?.currentTime)
+        }
     }
     
-    func stopRecording(completion: @escaping (AudioWithTranscription) -> Void) {
+    func stopRecording(completion: @escaping (Result<AudioWithTranscription, Error>) -> Void) {
         guard let audioRecorder = audioRecorder,
               self.isRecording else { return }
         let time = audioRecorder.currentTime
-        speechRecognizerManager.transcribe(from: audioRecorder.url) { trans, segs in
-            completion(
-                AudioWithTranscription(url: audioRecorder.url,
-                                       title: Date().description,
-                                       totalDuration: time,
-                                       finalTranscription: trans,
-                                       finalTranscriptionSegments: segs)
-            )
+        speechRecognizerManager.transcribe(from: audioRecorder.url) { result in
+            switch result {
+            case .success(let trans):
+                completion(.success(
+                    AudioWithTranscription(url: audioRecorder.url,
+                                           title: Date().description,
+                                           totalDuration: time,
+                                           finalTranscription: trans.bestTranscription,
+                                           finalTranscriptionSegments: trans.segments)
+                ))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
-        audioRecorder.stop()
+        self.audioRecorder?.stop()
+        self.recordTimer?.invalidate()
     }
     
     private func getFileName() -> URL {
@@ -106,6 +118,6 @@ final class AudioWithTranscriptionManager: NSObject, SpeechRecognizerAccessProto
 extension AudioWithTranscriptionManager: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer,
                                      successfully flag: Bool) {
-        self.timer?.invalidate()
+        self.playTimer?.invalidate()
     }
 }

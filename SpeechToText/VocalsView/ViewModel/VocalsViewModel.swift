@@ -33,8 +33,10 @@ final class VocalsViewModel: ObservableObject {
         self.observeService()
     }
     
-    func recordDidPressed() {
-        recordsService.startRecording()
+    func recordDidPressed(completion: @escaping (TimeInterval?) -> Void) {
+        recordsService.startRecording { currentTime in
+            completion(currentTime)
+        }
     }
     
     func stopRecordDidPressed() {
@@ -42,7 +44,7 @@ final class VocalsViewModel: ObservableObject {
     }
     
     func playRecord(_ rec: AudioWithTranscription,
-                    completion: @escaping (TimeInterval) -> Void) {
+                    completion: @escaping (TimeInterval?) -> Void) {
         recordsService.playRecord(record: rec) { time in
             completion(time)
         }

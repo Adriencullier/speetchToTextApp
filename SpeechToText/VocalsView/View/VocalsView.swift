@@ -10,54 +10,74 @@ import SwiftUI
 struct VocalsView: View {
     @ObservedObject var viewModel: VocalsViewModel
     
+    @State private var isRecording = false
+    @State private var recordTime: TimeInterval = 0
+    
     var body: some View {
         NavigationView {
             ZStack {
                 Color.gray.opacity(0.2)
                     .edgesIgnoringSafeArea(.top)
                 VStack(alignment: .center, spacing: 0) {
-                    List {
-                        if viewModel.storedRecordings.isEmpty,
-                           viewModel.recordIsProcessing {
-                            EmptyRow()
-                        } else {
-                            ForEach(viewModel.storedRecordings, id: \.id) { rec in
-                                VStack(alignment: .center, spacing: 0) {
-                                    NavigationLink(destination: {
-                                        TranscriptionView(title: "Audio Transcription",
-                                                          text: rec.finalTranscription,
-                                                          confidenceLevel: viewModel.getConfidenceLevel(record: rec))
-                                    }) {
-                                        AudioRow(viewModel: viewModel,
-                                                 record: rec)
-                                    }
-                                    if viewModel.recordIsProcessing,
-                                       viewModel.storedRecordings.last?.title == rec.title {
-                                        EmptyRow()
+                    ZStack {
+                        List {
+                            if viewModel.storedRecordings.isEmpty,
+                               viewModel.recordIsProcessing {
+                                EmptyRow()
+                            } else {
+                                ForEach(viewModel.storedRecordings, id: \.id) { rec in
+                                    VStack(alignment: .center, spacing: 0) {
+                                        NavigationLink(destination: {
+                                            TranscriptionView(title: "Audio Transcription",
+                                                              text: rec.finalTranscription,
+                                                              confidenceLevel: viewModel.getConfidenceLevel(record: rec))
+                                        }) {
+                                            AudioRow(viewModel: viewModel,
+                                                     record: rec)
+                                        }
+                                        if viewModel.recordIsProcessing,
+                                           viewModel.storedRecordings.last?.title == rec.title {
+                                            EmptyRow()
+                                        }
                                     }
                                 }
                             }
+                        }
+                        .disabled(self.isRecording)
+                        if self.isRecording {
+                            Text(String(self.recordTime.minuteAndSecondToString()))
+                                .font(.title)
                         }
                     }
                     Spacer()
                     HStack(spacing: 32) {
                         Button {
-                            viewModel.recordDidPressed()
+                            viewModel.recordDidPressed { currenTime in
+                                self.recordTime = currenTime ?? 0
+                            }
+                            self.isRecording = true
                         } label: {
                             Image(systemName: "record.circle")
                                 .resizable()
                         }
-                        .foregroundColor(.red)
+                        .foregroundColor(
+                            .red.opacity(self.isRecording ? 0.5: 1)
+                        )
                         .frame(width: 48, height: 48)
+                        .disabled(self.isRecording)
                         
                         Button {
                             viewModel.stopRecordDidPressed()
+                            self.isRecording = false
                         } label: {
                             Image(systemName: "stop.circle")
                                 .resizable()
                         }
-                        .foregroundColor(.blue)
+                        .foregroundColor(
+                            .blue.opacity(!self.isRecording ? 0.5: 1)
+                        )
                         .frame(width: 48, height: 48)
+                        .disabled(!self.isRecording)
                     }
                 }
             }
@@ -90,9 +110,9 @@ struct AudioRow: View {
                                     self.viewModel.playRecord(record) { currentTime in
                                         self.progressBarValue = viewModel.getProgressbarValue(
                                             durationTot: record.totalDuration,
-                                            currentTime: currentTime
+                                            currentTime: currentTime ?? 0
                                         )
-                                        self.currentTime = currentTime
+                                        self.currentTime = currentTime ?? 0
                                     }
                                     if self.currentTime == self.record.totalDuration {
                                         self.currentTime = 0
