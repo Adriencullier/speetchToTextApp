@@ -33,29 +33,6 @@ final class AudioWithTranscriptionManager: NSObject, SpeechRecognizerAccessProto
         self.initializeAudioSession()
     }
     
-    
-    /// Play selected record
-    /// - Parameters:
-    ///   - record: selected record
-    ///   - completion: playing time (TimeInterval)
-    func playRecord(record: AudioWithTranscription,
-                    completion: @escaping (TimeInterval?) -> Void) {
-        do {
-            self.audioPlayer = try AVAudioPlayer(contentsOf : record.url)
-            self.audioPlayer?.delegate =  self
-            self.audioPlayer?.prepareToPlay()
-            self.audioPlayer?.play()
-            
-            self.playTimer = Timer.scheduledTimer(withTimeInterval: K.audioTimeInterval,
-                                                  repeats: true) { [weak self] _ in
-                guard let `self` = self else { return }
-                completion(self.audioPlayer?.currentTime)
-            }
-        } catch {
-            print("Playing failed")
-        }
-    }
-    
     /// Start recording
     /// - Parameter completion: recording time (TimeInterval)
     func startRecording(completion: @escaping (TimeInterval?) -> Void) {
@@ -105,6 +82,28 @@ final class AudioWithTranscriptionManager: NSObject, SpeechRecognizerAccessProto
         }
         self.audioRecorder?.stop()
         self.recordTimer?.invalidate()
+    }
+    
+    /// Play selected record
+    /// - Parameters:
+    ///   - record: selected record
+    ///   - completion: playing time (TimeInterval)
+    func playRecord(record: AudioWithTranscription,
+                    completion: @escaping (TimeInterval?) -> Void) {
+        do {
+            self.audioPlayer = try AVAudioPlayer(contentsOf : record.url)
+            self.audioPlayer?.delegate =  self
+            self.audioPlayer?.prepareToPlay()
+            self.audioPlayer?.play()
+            
+            self.playTimer = Timer.scheduledTimer(withTimeInterval: K.audioTimeInterval,
+                                                  repeats: true) { [weak self] _ in
+                guard let `self` = self else { return }
+                completion(self.audioPlayer?.currentTime)
+            }
+        } catch {
+            print("Playing failed")
+        }
     }
     
     /// Get the audio file url
